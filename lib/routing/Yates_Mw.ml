@@ -48,6 +48,7 @@ module Make = functor (Experts : MW_INPUT) -> struct
 
   let hedge (epsilon : float) (delta : float) (topo : topology) (d:demands)
       (nodes : Topology.VertexSet.t) (usage_table : (edge, float) Hashtbl.t) =
+    Core.eprintf "hedge ..\n%!";
     let (struc,c_min) = select_structure topo d nodes in
     let usage_vec = usage_of_structure topo d struc in
 

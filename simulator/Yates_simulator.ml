@@ -219,8 +219,9 @@ let simulate
                           "demand (predicted)", Some predict_file;
                           "host map", Some host_file;
                           "RTT", rtt_file_opt]);
-
+  Core.printf "parsing topo...";
   let topo = parse_topology topology_file subgraph_opt in
+  Core.printf " done\n";
   (*let topo =
     if false then
       set_link_capacities topo_t (estimate_capacity_req topo_t demand_file host_file scale)
@@ -337,7 +338,9 @@ let simulate
             if n = 0 then initialize_scheme algorithm topo predict;
 
             (* solve *)
+            Core.printf "solving now...";
             let scheme,solver_time = solve_within_budget algorithm topo predict actual in
+            Core.printf " done.\n";
             ignore(reset_topo_weights edge_weights topo;);
 
             (* Print paths *)
@@ -618,6 +621,7 @@ let command =
     +> flag "-mwmcf" no_arg ~doc:(" run mwmcf : " ^ solver_to_description MwMcf)
     +> flag "-optimalmcf" no_arg ~doc:(" run optimal mcf : " ^ solver_to_description OptimalMcf)
     +> flag "-raeke" no_arg ~doc:(" run raeke : " ^ solver_to_description Raeke)
+    +> flag "-rrt" no_arg ~doc:(" run rrt : " ^ solver_to_description RRT)
     +> flag "-semimcfac" no_arg ~doc:(" run semi mcf+ac : " ^ solver_to_description SemiMcfAc)
     +> flag "-semimcfecmp" no_arg ~doc:(" run semi mcf+ecmp : " ^ solver_to_description SemiMcfEcmp)
     +> flag "-semimcfedksp" no_arg ~doc:(" run semi mcf+edksp : " ^ solver_to_description SemiMcfEdksp)
@@ -683,6 +687,7 @@ let command =
       (mwmcf:bool)
       (optimalmcf:bool)
       (raeke:bool)
+      (rrt:bool)
       (semimcfac:bool)
       (semimcfecmp:bool)
       (semimcfedksp:bool)
@@ -745,6 +750,7 @@ let command =
           ; if mwmcf             then Some MwMcf       else None
           ; if optimalmcf || all then Some OptimalMcf  else None
           ; if raeke || all      then Some Raeke       else None
+          ; if rrt || all        then Some RRT         else None
           ; if semimcfac || all        then Some SemiMcfAc     else None
           ; if semimcfecmp || all      then Some SemiMcfEcmp     else None
           ; if semimcfedksp || all     then Some SemiMcfEdksp      else None
@@ -775,6 +781,8 @@ let command =
       Yates_routing.Globals.ffc_max_link_failures :=
         max fail_num !(Yates_routing.Globals.ffc_max_link_failures);
       try
+        let robust = false in
+        let vulnerability = false in
         if robust then
           Yates_routing.Globals.failure_time  := 0;
 

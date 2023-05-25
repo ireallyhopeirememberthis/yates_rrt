@@ -23,6 +23,7 @@ let main algo topo_fn actual_fn predicted_fn hosts_fn src_routing () =
   | MwMcf -> let module C = Controller.Make(MwMcf) in C.start topo_fn actual_fn hosts_fn algo src_routing ()
   | OptimalMcf -> let module C = Controller.Make(Mcf) in C.start topo_fn actual_fn hosts_fn algo src_routing ()
   | Raeke -> let module C = Controller.Make(Raeke) in C.start topo_fn actual_fn hosts_fn algo src_routing ()
+  | RRT -> let module C = Controller.Make(RRT) in C.start topo_fn actual_fn hosts_fn algo src_routing ()
   | SemiMcfAc
   | SemiMcfEcmp
   | SemiMcfEdksp

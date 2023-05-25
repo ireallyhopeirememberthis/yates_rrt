@@ -45,8 +45,9 @@ module type FRT_TYPE = sig
   val routing_edges : routing_tree -> routing_edge list
 
   (* Converts an edge in the routing tree to the corresponding path in the
-     physical topology. *)
-  val edge_to_physical : routing_tree -> routing_edge -> NetPath.t
+     physical topology. 
+     Note: NetPath.t is a Net.Topology.edge list*)
+  val edge_to_physical : routing_tree -> routing_edge -> NetPath.t 
 
   (* Converts an path in the routing tree to the corresponding path in the
      physical topology. *)
@@ -440,14 +441,15 @@ struct
           List.map level ~f:(fun node -> get_cluster node))
 
     let name_of_node topo vert =
-      let vert_label = Topology.vertex_to_label topo vert in
+      Node.name (Topology.vertex_to_label topo vert)
+      (*let vert_label = Topology.vertex_to_label topo vert in
       let prefix = match Node.device vert_label with
         | Node.Switch -> "s"
         | Node.Host -> "h"
         | Node.Middlebox -> "m" in
       let name = Node.name vert_label in
       let new_name = prefix ^ String.drop_prefix name 1 in
-      new_name
+      new_name*)
 
     let vertex_to_dot topo vert level highlight =
       let vert_label = Topology.vertex_to_label topo vert in
@@ -564,6 +566,6 @@ struct
 
     let write_rt topo rrt filename =
       write_dot1 topo rrt filename;
-      write_dot2 topo rrt filename
+      (*write_dot2 topo rrt filename*)
 
   end

@@ -241,6 +241,7 @@ module Make(Solver:Algorithm) = struct
 
   (* Source routing using a stack of tags (one per hop) for a path *)
   let start_src topo_fn predict_fn host_fn algo () =
+    Core.eprintf "source routing\n%!";
     (* Parse topology *)
     let topo = Frenetic_kernel.Network.Net.Parse.from_dotfile topo_fn in
     (* Create fabric *)
@@ -250,7 +251,9 @@ module Make(Solver:Algorithm) = struct
     (* Helper to generate host configurations *)
     let rec simulate i =
       try
+        Core.eprintf "generating predict thingy ...";
         let predict = next_demand ~wrap:false predict_traffic_ic predict_host_map in
+        Core.eprintf " done!\n";
         if i = 0 then initialize_scheme algo topo predict;
         let scheme = Solver.solve topo predict in
         print_configuration topo (source_routing_configuration_of_scheme topo scheme tag_hash) i;
@@ -267,21 +270,27 @@ module Make(Solver:Algorithm) = struct
   (* Route using single tag per path *)
   let start_path topo_fn predict_fn host_fn algo () =
     (* Parse topology *)
+    Core.eprintf "parsing topology...";
     let topo = Net.Parse.from_dotfile topo_fn in
+    Core.eprintf " done\n";
     (* Open predicted demands *)
     let (predict_host_map, predict_traffic_ic) = open_demands predict_fn host_fn topo in
+    Core.eprintf "finished opening demands file\n";
     (* Helper to generate host configurations *)
     let rec simulate i path_tag_map =
       try
+        Core.eprintf "doing a predict.. \n";
         let predict = next_demand ~wrap:false predict_traffic_ic predict_host_map in
+        Core.eprintf "fetching traffic matrix done\n";
         if i = 0 then initialize_scheme algo topo predict;
+        Core.eprintf "finished initialization of scheme, solving ... %!";
         let scheme = Solver.solve topo predict in
-        Core.printf "%d\n%!" (SrcDstMap.length scheme);
+        Core.eprintf "%d\n%!" (SrcDstMap.length scheme);
         let path_tag_map = Yates_Paths.add_paths_from_scheme scheme path_tag_map in
         print_configuration topo (path_routing_configuration_of_scheme topo scheme path_tag_map) i;
         simulate (i+1) path_tag_map
       with err ->
-        Core.printf "exit %d %s\n%!" i (Exn.to_string err);
+        Core.eprintf "exit %d %s\n%!" i (Exn.to_string err);
         path_tag_map in
     (* Main code *)
     Core.eprintf "[Yates: generating configurations]\n%!";

@@ -6,7 +6,7 @@ open Helper
 
 (* List of supported TE systems *)
 type solver_type =
-  | Ac | Cspf | Ecmp | Edksp | Ksp | Mcf | MwMcf | Raeke | Spf | Vlb
+  | Ac | Cspf | Ecmp | Edksp | Ksp | Mcf | MwMcf | Raeke | RRT | Spf | Vlb
   | AkMcf | AkRaeke | AkEcmp | AkKsp | AkVlb
   | Ffc | Ffced
   | SemiMcfAc | SemiMcfEcmp | SemiMcfEdksp | SemiMcfKsp | SemiMcfKspFT
@@ -32,6 +32,7 @@ let solver_to_string (s:solver_type) : string =
   | Mcf -> "mcf"
   | MwMcf -> "mwmcf"
   | Raeke -> "raeke"
+  | RRT -> "rrt"
   | SemiMcfAc -> "semimcfac"
   | SemiMcfEcmp -> "semimcfecmp"
   | SemiMcfEdksp -> "semimcfedksp"
@@ -65,6 +66,7 @@ let string_to_solver (s:string) : solver_type =
   | "mcf" -> Mcf
   | "mwmcf" -> MwMcf
   | "raeke" -> Raeke
+  | "rrt" -> RRT
   | "semimcfac" -> SemiMcfAc
   | "semimcfecmp" -> SemiMcfEcmp
   | "semimcfedksp" -> SemiMcfEdksp
@@ -99,6 +101,7 @@ let solver_to_description (s:solver_type) : string =
   | Mcf -> "multi-commodity flow that minimizes max. link utilization"
   | MwMcf -> "multi-commodity flow using multiplicative weights"
   | Raeke -> "Raecke's oblivious routing"
+  | RRT -> "Randomized Routing Trees"
   | SemiMcfAc -> "Applegate-Cohen's oblivious routing for path selection + restricted MCF for rate adaptation"
   | SemiMcfEcmp -> "ECMP for path selection + restricted MCF for rate adaptation"
   | SemiMcfEdksp -> "Edge-disjoint k-shortest paths for path selection + restricted MCF for rate adaptation"
@@ -132,6 +135,7 @@ let select_algorithm solver = match solver with
   | MwMcf -> Yates_routing.MwMcf.solve
   | OptimalMcf -> Yates_routing.Mcf.solve
   | Raeke -> Yates_routing.Raeke.solve
+  | RRT -> Yates_routing.RRT.solve
   | SemiMcfAc
   | SemiMcfEcmp
   | SemiMcfEdksp
@@ -164,6 +168,7 @@ let select_local_recovery solver = match solver with
   | MwMcf -> Yates_routing.MwMcf.local_recovery
   | OptimalMcf -> failwith "No local recovery for optimal mcf"
   | Raeke -> Yates_routing.Raeke.local_recovery
+  | RRT -> Yates_routing.RRT.local_recovery
   | SemiMcfAc
   | SemiMcfEcmp
   | SemiMcfEdksp
@@ -202,6 +207,7 @@ let initial_scheme algorithm topo predict : scheme =
     let _ = Yates_routing.Ksp.initialize SrcDstMap.empty in
     all_failures_envelope Yates_routing.Ksp.solve topo SrcDstMap.empty
   | AkMcf
+  | RRT
   | SemiMcfMcf ->
     Yates_routing.Mcf.solve topo predict
   | SemiMcfMcfEnv ->
@@ -242,6 +248,7 @@ let initialize_scheme algorithm topo predict : unit =
   | Ffced -> Yates_routing.Ffc.initialize pruned_scheme
   | Ksp -> Yates_routing.Ksp.initialize SrcDstMap.empty
   | Raeke -> Yates_routing.Raeke.initialize SrcDstMap.empty
+  | RRT -> Yates_routing.RRT.initialize SrcDstMap.empty
   | SemiMcfAc
   | SemiMcfEcmp
   | SemiMcfEdksp
@@ -273,6 +280,7 @@ let all_solver_string_descripton : (string * string) list =
     (solver_to_string Mcf, solver_to_description Mcf) ;
     (solver_to_string MwMcf, solver_to_description MwMcf) ;
     (solver_to_string Raeke, solver_to_description Raeke) ;
+    (solver_to_string RRT, solver_to_description RRT) ;
     (solver_to_string SemiMcfAc, solver_to_description SemiMcfAc) ;
     (solver_to_string SemiMcfEcmp, solver_to_description SemiMcfEcmp) ;
     (solver_to_string SemiMcfEdksp, solver_to_description SemiMcfEdksp) ;
