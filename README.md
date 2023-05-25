@@ -6,6 +6,14 @@
 ## [Yet Another Traffic Engineering System](https://cornell-netlab.github.io/yates/)
 
 YATES is a software framework that enables rapid prototyping and evaluation of traffic engineering systems. It is open source under a GNU LGPLv3 license.
+
+## This fork is not intended for traffic engineering use
+
+I have modified Yates to accept an -rrt option, which will then produce randomized routing trees using the multiplicative weights iterative algorithm. It is neither fast nor good code, but merely serves me in not having to re-implement the tree generation.
+
+Use at your own risk.
+
+BTW: the installation guide below is pretty outdated, check in the issues of the original repo, or use my docker file.
 ## Getting started
 
 ### Installation: 
