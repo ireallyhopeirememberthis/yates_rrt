@@ -1,0 +1,151 @@
+parsing topology... done
+finished opening demands file
+[Yates: generating configurations]
+doing a predict.. 
+fetching traffic matrix done
+finished initialization of scheme, solving ... #############starting hedge_iterations
+
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+hedge ..
+123 iterations done.
+0
+exit 0 (Unix.Unix_error "No such file or directory" mkdir
+  "((dirname data/routes) (perm 0o777))")
+[Yates: 0]
+[Yates: starting controller]
+[Yates: running...]
+yates> Uncaught exception:
+  
+  (Sys_error "/etc/localtime: No such file or directory")
+
+Raised at CamlinternalLazy.force_lazy_block.(fun) in file "camlinternalLazy.ml", line 35, characters 56-63
+Called from CamlinternalLazy.force_lazy_block in file "camlinternalLazy.ml", line 31, characters 17-27
+Re-raised at CamlinternalLazy.force_lazy_block in file "camlinternalLazy.ml", line 36, characters 4-11
+Called from Core__Core_time_ns.sexp_of_t in file "src/core_time_ns.ml", line 462, characters 38-56
+Called from Async_unix__Raw_scheduler.be_the_scheduler in file "src/raw_scheduler.ml", line 895, characters 41-69
+Called from Yates_Controller in file "controller/Yates_Controller.ml", line 71, characters 15-32
+
+real	141m37.902s
+user	141m23.515s
+sys	0m13.797s
