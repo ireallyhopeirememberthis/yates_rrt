@@ -3,7 +3,7 @@
 # This script is to be run inside a docker container, or some other installation that has Yates installed with our -rrt option
 # Define the lists of numbers
 node_count=(50 100 200 500 1000 2000)
-percentages=(12 22)
+percentages=(30)
 
 output_file="elapsed times.txt"
 
