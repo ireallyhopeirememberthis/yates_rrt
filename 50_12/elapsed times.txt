@@ -1,3 +1,8 @@
+./generate_trees4.sh: line 28: yates.crtl: command not found
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.001s
 parsing topology... done
 finished opening demands file
 [Yates: generating configurations]
@@ -24,7 +29,10 @@ hedge ..
 hedge ..
 hedge ..
 hedge ..
-19 iterations done.
+hedge ..
+hedge ..
+hedge ..
+22 iterations done.
 0
 exit 0 (Unix.Unix_error "No such file or directory" mkdir
   "((dirname data/routes) (perm 0o777))")
@@ -42,6 +50,6 @@ Called from Core__Core_time_ns.sexp_of_t in file "src/core_time_ns.ml", line 462
 Called from Async_unix__Raw_scheduler.be_the_scheduler in file "src/raw_scheduler.ml", line 895, characters 41-69
 Called from Yates_Controller in file "controller/Yates_Controller.ml", line 71, characters 15-32
 
-real	0m0.191s
-user	0m0.158s
-sys	0m0.027s
+real	0m0.270s
+user	0m0.220s
+sys	0m0.041s

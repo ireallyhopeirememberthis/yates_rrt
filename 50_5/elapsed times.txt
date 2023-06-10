@@ -1,3 +1,8 @@
+./generate_trees.sh: line 28: yates.crtl: command not found
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.001s
 parsing topology... done
 finished opening demands file
 [Yates: generating configurations]
@@ -31,6 +36,6 @@ Called from Core__Core_time_ns.sexp_of_t in file "src/core_time_ns.ml", line 462
 Called from Async_unix__Raw_scheduler.be_the_scheduler in file "src/raw_scheduler.ml", line 895, characters 41-69
 Called from Yates_Controller in file "controller/Yates_Controller.ml", line 71, characters 15-32
 
-real	0m0.111s
-user	0m0.074s
-sys	0m0.030s
+real	0m0.137s
+user	0m0.102s
+sys	0m0.027s
