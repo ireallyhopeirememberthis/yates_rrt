@@ -1,0 +1,5 @@
+./generate_trees8.sh: line 28: yates.crtl: command not found
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.001s
